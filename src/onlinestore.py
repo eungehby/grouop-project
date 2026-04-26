@@ -1846,7 +1846,10 @@ def prompt_order_cancel_request(current_user: dict) -> None:
 
     while True:
         print("[주문 취소 요청]")
-        order_id = input("취소할 주문 ID를 입력하세요 > ").strip()
+        order_id = input("취소할 주문 ID를 입력하세요 (0: 이전 메뉴) > ").strip()
+
+        if order_id == "0":
+            return
 
         try:
             orders = load_orders()
@@ -1859,6 +1862,7 @@ def prompt_order_cancel_request(current_user: dict) -> None:
             print("오류 : 존재하지 않는 주문 ID입니다.")
             print()
             continue
+        
 
         if order["user_id"] != user_id:
             print("오류 : 본인의 주문만 취소 요청할 수 있습니다.")
